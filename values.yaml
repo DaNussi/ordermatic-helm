@@ -33,6 +33,5 @@ database:
     tag: 5.7
     imagePullPolicy: IfNotPresent
 
-service:
+ingress:
   host: "ordermatic.nussi.net"
-  port: 30080
