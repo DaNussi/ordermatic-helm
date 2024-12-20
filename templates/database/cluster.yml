@@ -10,6 +10,8 @@ spec:
   ## For setting custom docker image or specifying mysql version
   ## the image field has priority over mysqlVersion.
   image: docker.nussi.net/ordermatic/mysql:5.7
+  imagePullSecrets:
+  - name: {{ .Release.Name }}-registry-secret
   mysqlVersion: "5.7"
 
     # initBucketURL: gs://bucket_name/backup.xtrabackup.gz

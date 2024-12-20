@@ -4,16 +4,10 @@
 
 replicaCount: 1
 
-image:
-  repository: nginx
-  pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
-
-images:
-  frontend: docker.nussi.net/ordermatic/frontend:7f97760943afc10be1683e07b4260e3c6d6450db
-  backend: docker.nussi.net/ordermatic/backend:0170dce76ea6830ff4c5acc53e780622c0902aa9
-  database: docker.nussi.net/ordermatic/mysql:5.7
+registry:
+  host: docker.nussi.net
+  username: robot$k3s
+  password: npgaBj9Z9PvnufITx9dfAcP89Oe6TSXc
 
 frontend:
   image:

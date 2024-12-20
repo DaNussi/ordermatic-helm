@@ -19,6 +19,8 @@ spec:
         - name: frontend
           image: {{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}
           imagePullPolicy: {{ .Values.frontend.image.imagePullPolicy }}
+          imagePullSecrets:
+          - name: {{ .Release.Name }}-registry-secret
           ports:
             - containerPort: 4200
               protocol: TCP
