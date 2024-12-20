@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: {{ .Release.Name }}-backend-deployment
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ .Release.Name }}-backend-deployment
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-backend-deployment
+  template:
+    metadata:
+      name: backend
+      namespace: {{ .Release.Namespace }}
+      labels:
+        app: {{ .Release.Name }}-backend-deployment
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: backend
+          image: {{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}
+          imagePullPolicy: {{ .Values.backend.image.imagePullPolicy }}
+          env:
+            - name: MYSQL_HOST
+              value: "{{ .Release.Name }}-database-mysql-master.{{ .Release.Namespace }}.svc.cluster.local"
+            - name: MYSQL_PORT
+              value: "3306"
+            - name: MYSQL_CLASS
+              value: "com.mysql.cj.jdbc.Driver"
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: PASSWORD
+                  name: {{ .Release.Name }}-database-secret
+            - name: MYSQL_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: USER
+                  name: {{ .Release.Name }}-database-secret
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  key: DATABASE
+                  name: {{ .Release.Name }}-database-secret
+            - name: MYSQL_URL
+              value: "jdbc:mysql://$(MYSQL_HOST):$(MYSQL_PORT)/$(MYSQL_DATABASE)"
+            - name: SPRING_APPLICATION_JSON
+              value: |
+                {
+                  "spring": {
+                    "datasource": {
+                      "url": "$(MYSQL_URL)",
+                      "username": "$(MYSQL_USERNAME)",
+                      "password": "$(MYSQL_PASSWORD)",
+                      "driver-class-name": "$(MYSQL_CLASS)"
+                    },
+                    "jpa": {
+                      "open-in-view": "true"
+                    }
+                  }
+                }
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              scheme: HTTP
+              path: /api/actuator/health/readiness
+              port: 8080
+            failureThreshold: 10
+            periodSeconds: 5
+
+          readinessProbe:
+            httpGet:
+              scheme: HTTP
+              path: /api/actuator/health/liveness
+              port: 8080
+            failureThreshold: 10
+            periodSeconds: 5
