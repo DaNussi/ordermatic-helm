@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: {{ .Release.Name }}-frontend-deployment
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ .Release.Name }}-frontend-deployment
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-frontend-deployment
+  template:
+    metadata:
+      name: {{ .Release.Name }}-frontend-deployment
+      labels:
+        app: {{ .Release.Name }}-frontend-deployment
+    spec:
+      containers:
+        - name: frontend
+          image: {{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}
+          imagePullPolicy: {{ .Values.frontend.image.imagePullPolicy }}
+          ports:
+            - containerPort: 4200
+              protocol: TCP
+      restartPolicy: Always
