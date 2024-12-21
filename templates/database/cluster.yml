@@ -89,10 +89,13 @@ spec:
   #         command:
   #           - /scripts/demote-if-master
   #   nodeSelector: {}
-  #   resources:
-  #     requests:
-  #       memory: 1G
-  #       cpu:    200m
+    resources:
+      requests:
+        memory: {{ .Values.database.image.memory }}
+        cpu: {{ .Values.database.image.cpu }}
+      limits:
+        memory: {{ .Values.database.image.memory }}
+        cpu: {{ .Values.database.image.cpu }}
   #   tolerations: []
   #   priorityClassName:
   #   serviceAccountName: default

@@ -23,6 +23,13 @@ spec:
         - name: backend
           image: {{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}
           imagePullPolicy: {{ .Values.backend.image.imagePullPolicy }}
+          resources:
+            requests:
+              memory: {{ .Values.backend.image.memory }}
+              cpu: {{ .Values.backend.image.cpu }}
+            limits:
+              memory: {{ .Values.backend.image.memory }}
+              cpu: {{ .Values.backend.image.cpu }}
           env:
             - name: MYSQL_HOST
               value: "{{ .Release.Name }}-database-mysql-master.{{ .Release.Namespace }}.svc.cluster.local"
