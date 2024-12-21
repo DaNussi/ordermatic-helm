@@ -15,13 +15,13 @@ spec:
       labels:
         app: {{ .Release.Name }}-frontend-deployment
     spec:
+      restartPolicy: Always
+      imagePullSecrets:
+      - name: {{ .Release.Name }}-registry-secret
       containers:
         - name: frontend
           image: {{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}
           imagePullPolicy: {{ .Values.frontend.image.imagePullPolicy }}
-          imagePullSecrets:
-          - name: {{ .Release.Name }}-registry-secret
           ports:
             - containerPort: 4200
               protocol: TCP
-      restartPolicy: Always
