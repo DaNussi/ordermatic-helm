@@ -14,6 +14,7 @@ frontend:
     repository: docker.nussi.net/ordermatic/frontend
     tag: 7f97760943afc10be1683e07b4260e3c6d6450db
     imagePullPolicy: IfNotPresent
+  resources:
     memory: "128Mi"
     cpu: "500m"
 
@@ -22,6 +23,7 @@ backend:
     repository: docker.nussi.net/ordermatic/backend
     tag: 0170dce76ea6830ff4c5acc53e780622c0902aa9
     imagePullPolicy: IfNotPresent
+  resources:
     memory: "2048Mi"
     cpu: "5000m"
 
@@ -30,8 +32,15 @@ database:
     repository: docker.nussi.net/ordermatic/mysql
     tag: 5.7
     imagePullPolicy: IfNotPresent
+  resources:
     memory: "1024Mi"
     cpu: "200m"
+  storage:
+    accessModes: [ "ReadWriteOnce" ]
+    storageClass: nfs-client
+    resources:
+      requests:
+        storage: 1Gi
 
 ingress:
   host: "ordermatic.nussi.net"

@@ -24,11 +24,11 @@ spec:
           imagePullPolicy: {{ .Values.frontend.image.imagePullPolicy }}
           resources:
             requests:
-              memory: {{ .Values.frontend.image.memory }}
-              cpu: {{ .Values.frontend.image.cpu }}
+              memory: {{ .Values.frontend.resources.memory }}
+              cpu: {{ .Values.frontend.resources.cpu }}
             limits:
-              memory: {{ .Values.frontend.image.memory }}
-              cpu: {{ .Values.frontend.image.cpu }}
+              memory: {{ .Values.frontend.resources.memory }}
+              cpu: {{ .Values.frontend.resources.cpu }}
           ports:
             - containerPort: 4200
               protocol: TCP
