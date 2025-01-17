@@ -37,7 +37,7 @@ database:
     cpu: "200m"
   storage:
     accessModes: [ "ReadWriteOnce" ]
-    StorageClassName: nfs-client
+    storageClassName: nfs-client
     resources:
       requests:
         storage: 1Gi
