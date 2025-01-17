@@ -15,11 +15,20 @@ spec:
       labels:
         app: {{ .Release.Name }}-frontend-deployment
     spec:
+      restartPolicy: Always
+      imagePullSecrets:
+      - name: {{ .Release.Name }}-registry-secret
       containers:
         - name: frontend
           image: {{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}
           imagePullPolicy: {{ .Values.frontend.image.imagePullPolicy }}
+          resources:
+            requests:
+              memory: {{ .Values.frontend.image.memory }}
+              cpu: {{ .Values.frontend.image.cpu }}
+            limits:
+              memory: {{ .Values.frontend.image.memory }}
+              cpu: {{ .Values.frontend.image.cpu }}
           ports:
             - containerPort: 4200
               protocol: TCP
-      restartPolicy: Always
