@@ -4,7 +4,7 @@ metadata:
   name: {{ .Release.Name }}-ingress
   namespace: {{ .Release.Namespace }}
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    traefik.ingress.kubernetes.io/router.middlewares: {{ .Release.Namespace }}-api-stripprefix@kubernetescrd
 spec:
   rules:
     - host: {{ .Values.ingress.host }}

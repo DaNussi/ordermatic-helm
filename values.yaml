@@ -6,8 +6,8 @@ replicaCount: 1
 
 registry:
   host: docker.nussi.net
-  username: robot$k3s
-  password: npgaBj9Z9PvnufITx9dfAcP89Oe6TSXc
+  username: robot$argocd
+  password: H97679H0RXwvELs5XrckvUd2g1QFrNTl
 
 frontend:
   image:
