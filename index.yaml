@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  ordermatic-helm:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2025-06-02T22:09:03.305104806Z"
+    description: A Helm chart for Kubernetes
+    digest: 5f6e796048495bb0e41ef4975389e6f76f70c62e3e08b892aa3a0681fb118445
+    name: ordermatic-helm
+    type: application
+    urls:
+    - https://github.com/DaNussi/ordermatic-helm/releases/download/ordermatic-helm-0.1.0/ordermatic-helm-0.1.0.tgz
+    version: 0.1.0
+generated: "2025-06-02T22:09:03.305110377Z"
